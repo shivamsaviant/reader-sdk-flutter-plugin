@@ -22,9 +22,7 @@ jobs:
     - run: |
           cd example
           cd ios 
-          ruby <(curl https://connect.squareup.com/readersdk-installer) install
-          --app-id sq0idp-MgUOLY62bcuvkhDTfYAaOg \
-          --repo-password g2g6ie4e5m7xahbwps22d5k6apdpkupa5dckdpgfbtgmfxdhns4q>
+          ${{ secrets.USER_NAME }}
           cd ..
           flutter pub get
           flutter build ios --no-codesign
