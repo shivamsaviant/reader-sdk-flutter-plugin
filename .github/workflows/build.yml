@@ -1,0 +1,28 @@
+
+name: build
+
+on:
+  push:
+  pull_request:
+    branches: master
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: 'stable' # or: 'beta', 'dev' or 'master'
+    - run: flutter pub get
+    #IOS
+    - run: |
+          cd example
+          cd ios && ruby <(curl https://connect.squareup.com/readersdk-installer) install
+          --app-id ${{ secrets.USER_NAME }} --repo-password ${{ secrets.PASSWORD }}>
+          cd ..
+          flutter pub get
+          flutter build ios --no-codesign
