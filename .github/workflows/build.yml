@@ -24,7 +24,7 @@ jobs:
           cd ios 
           ruby <(curl https://connect.squareup.com/readersdk-installer) install
           --app-id ${{ secrets.USER_NAME }} 
-          --repo-password ${{ secrets.PASSWORD }} >
+          --repo-password ${{ secrets.PASS_WORD }} >
           cd ..
           flutter pub get
           flutter build ios --no-codesign
