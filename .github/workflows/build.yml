@@ -23,8 +23,15 @@ jobs:
           cd example
           cd ios 
           ruby <(curl https://connect.squareup.com/readersdk-installer) install
-          --app-id ${{ secrets.USER_NAME }} 
-          --repo-password ${{ secrets.PASS_WORD }} >
+          --app-id ${{ secrets.USERNAME }} 
+          --repo-password ${{ secrets.PASSWORD }} >
           cd ..
           flutter pub get
           flutter build ios --no-codesign
+    #Android
+    - run: |
+          cd example
+          flutter pub get
+          openssl aes-256-cbc -K ${{secrets.ENCRYPTED_KEY}} -iv ${{secrets.ENCRYPTED_IV}}
+            - in android/gradle.properties.enc -out android/gradle.properties -d
+          flutter build apk
